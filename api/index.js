@@ -27,6 +27,23 @@ async function connectToDatabase() {
   }
 }
 
+// Root route
+app.get('/', (_req, res) => {
+  res.json({
+    service: 'FlameHouse Server',
+    status: 'running',
+    version: '1.0.0',
+    endpoints: {
+      health: '/health',
+      overview: '/api/overview',
+      menus: '/api/menus',
+      contact: '/api/contact',
+      orders: '/api/orders',
+      auth: '/api/auth',
+    },
+  });
+});
+
 // Health check
 app.get('/health', (_req, res) => {
   res.json({
