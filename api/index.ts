@@ -43,6 +43,10 @@ app.get('/health', (_req: Request, res: Response) => {
   });
 });
 
+app.get('/', (_req: Request, res: Response) => {
+  res.redirect('/health');
+});
+
 app.use('/api/overview', overviewRoutes);
 app.use('/api/menus', menuRoutes);
 app.use('/api/contact', contactRoutes);
