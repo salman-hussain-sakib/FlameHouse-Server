@@ -44,7 +44,12 @@ app.get('/health', (_req: Request, res: Response) => {
 });
 
 app.get('/', (_req: Request, res: Response) => {
-  res.redirect('/health');
+  res.json({
+    ok: true,
+    service: 'flamehouse-server',
+    message: 'Server is running',
+    health: '/health',
+  });
 });
 
 app.use('/api/overview', overviewRoutes);
@@ -52,6 +57,14 @@ app.use('/api/menus', menuRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/orders', ordersRoutes);
 app.use('/api/auth', authRoutes);
+
+app.use((req: Request, res: Response) => {
+  res.status(404).json({
+    ok: false,
+    message: 'Route not found',
+    path: req.originalUrl,
+  });
+});
 
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
