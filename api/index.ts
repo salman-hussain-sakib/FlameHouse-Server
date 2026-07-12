@@ -43,7 +43,7 @@ app.get('/health', (_req: Request, res: Response) => {
   });
 });
 
-app.get('/', (_req: Request, res: Response) => {
+app.get(['/', '/api/index'], (_req: Request, res: Response) => {
   res.json({
     ok: true,
     service: 'flamehouse-server',
@@ -58,6 +58,8 @@ app.use('/api/contact', contactRoutes);
 app.use('/api/orders', ordersRoutes);
 app.use('/api/auth', authRoutes);
 
+app.use(express.static(path.join(__dirname, '..', 'public')));
+
 app.use((req: Request, res: Response) => {
   res.status(404).json({
     ok: false,
@@ -65,8 +67,6 @@ app.use((req: Request, res: Response) => {
     path: req.originalUrl,
   });
 });
-
-app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // Connect to database on startup
 connectToDatabase();
