@@ -43,7 +43,16 @@ app.get('/health', (_req: Request, res: Response) => {
   });
 });
 
-app.get(['/', '/api/index'], (_req: Request, res: Response) => {
+app.get('/', (_req: Request, res: Response) => {
+  res.json({
+    ok: true,
+    service: 'flamehouse-server',
+    message: 'Server is running',
+    health: '/health',
+  });
+});
+
+app.get('/api/index', (_req: Request, res: Response) => {
   res.json({
     ok: true,
     service: 'flamehouse-server',

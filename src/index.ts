@@ -45,6 +45,24 @@ app.get('/health', (_req: Request, res: Response) => {
   });
 });
 
+app.get('/', (_req: Request, res: Response) => {
+  res.json({
+    ok: true,
+    service: 'flamehouse-server',
+    message: 'Server is running',
+    health: '/health',
+  });
+});
+
+app.get('/api/index', (_req: Request, res: Response) => {
+  res.json({
+    ok: true,
+    service: 'flamehouse-server',
+    message: 'Server is running',
+    health: '/health',
+  });
+});
+
 app.use('/api/overview', overviewRoutes);
 app.use('/api/menus', menuRoutes);
 app.use('/api/contact', contactRoutes);
